@@ -1,6 +1,6 @@
 <template>
  <el-container>
-    <sidebar :tabCollapse="isCollapse" />
+    <LeftNav :tabCollapse="isCollapse" />
     <el-container direction="vertical">
       <TopNav @tab-collapse="tabCollapse" :tabCollapse="isCollapse"/>
        <TopTab />
@@ -14,13 +14,13 @@
 
 <script>
 import { ref } from "vue";
-import { Sidebar } from './components'
+import LeftNav from "./left_nav.vue";
 import TopNav from "./top_nav.vue";
 import TopTab from "./top_tab.vue";
 export default {
   name: "Index",
   components: {
-    Sidebar,
+    LeftNav,
     TopNav,
     TopTab
   },

@@ -2,7 +2,7 @@
   <el-aside :style="{width:tabCollapse?'auto':'200px'}" class="navleft">
     <el-scrollbar class="pagescroll">
       <el-menu
-        default-active="1-1"
+        :default-active="activeMenu"
         :collapse="tabCollapse"
         background-color="#001529"
         text-color="#fff"
@@ -79,14 +79,15 @@ export default {
   components: {
   
   },
-   setup() {
+   setup(props,context) {
       const store = useStore();
-      console.log(store.state)
      let sidebarRouters = computed(() =>state.permission.sidebarRouters)
       let activeMenu = computed(() =>　{
           const { ctx } = getCurrentInstance()
           const route = ctx.$router.currentRoute.value
           const { meta, path } = route;
+           console.log(meta)
+           console.log(path)
         if (meta.activeMenu) {
               return meta.activeMenu;
           }

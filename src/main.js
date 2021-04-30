@@ -8,7 +8,6 @@ import 'lib-flexible'//适配
 import SvgIcon from '@/components/SvgIcon'// svg icon component
 import './permission' //权限
 
-
 const app = createApp(App)
 
 app.component('svg-icon', SvgIcon)
