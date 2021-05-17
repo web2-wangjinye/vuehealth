@@ -2,8 +2,12 @@
   <Suspense v-if="!item.hidden">
     <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
-        <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-          <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" />
+        <el-menu-item :index="resolvePath(onlyOneChild.path)">
+          <svg-icon :icon-class="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)"/>
+          <template #title>
+            <span>{{onlyOneChild.meta.title}}</span>
+          </template>
+          <!-- <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" /> -->
         </el-menu-item>
       </app-link>
     </template>
@@ -21,6 +25,7 @@
         class="nest-menu"
       />
     </el-submenu>
+ 
   </Suspense>
 </template>
 
@@ -38,10 +43,6 @@ export default {
     item: {
       type: Object,
       required: true
-    },
-    isNest: {
-      type: Boolean,
-      default: false
     },
     basePath: {
       type: String,
@@ -67,6 +68,7 @@ onlyOneChild:null
           return true
         }
       })
+     
       // When there is only one child router, the child router is displayed by default
       if (showingChildren.length === 1) {
         return true
@@ -77,16 +79,20 @@ onlyOneChild:null
         this.onlyOneChild = { ... parent, path: '', noShowingChildren: true }
         return true
       }
-
       return false
     },
     resolvePath(routePath) {
+      // console.log(routePath)
+      // console.log(isExternal(routePath))
       if (isExternal(routePath)) {
         return routePath
       }
+      // console.log(isExternal(this.basePath))
       if (isExternal(this.basePath)) {
         return this.basePath
       }
+      // console.log(this.basePath)
+      // console.log(path.resolve(this.basePath, routePath))
       return path.resolve(this.basePath, routePath)
     }
   }

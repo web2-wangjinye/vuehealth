@@ -28,6 +28,7 @@ const permission = {
       state.topbarRouters = routes.concat(index);
     },
     SET_SIDEBAR_ROUTERS: (state, routes) => {
+      console.log(routes)
       state.sidebarRouters = routes
     },
   },
@@ -38,12 +39,14 @@ const permission = {
         // 向后端请求路由数据
         // getRouters().then(res => {
           const res = getRouters()
+          console.log(res)
           const sdata = JSON.parse(JSON.stringify(res.data))
           const rdata = JSON.parse(JSON.stringify(res.data))
           const sidebarRoutes = filterAsyncRouter(sdata)
-          // console.log(sidebarRoutes)
+          console.log(sidebarRoutes)
           const rewriteRoutes = filterAsyncRouter(rdata, false, true)
           rewriteRoutes.push({ path: '*', redirect: '/404', hidden: true })
+          console.log(rewriteRoutes)
           commit('SET_ROUTES', rewriteRoutes)
           commit('SET_SIDEBAR_ROUTERS', constantRoutes.concat(sidebarRoutes))
           commit('SET_DEFAULT_ROUTES', sidebarRoutes)
@@ -59,6 +62,7 @@ const permission = {
 // 遍历后台传来的路由字符串，转换为组件对象
 function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
   return asyncRouterMap.filter(route => {
+    console.log(route)
     if (type && route.children) {
       route.children = filterChildren(route.children)
     }
@@ -106,8 +110,12 @@ function filterChildren(childrenMap, lastRouter = false) {
   return children
 }
 
+// export const loadView = (view) => { // 路由懒加载
+//   // return (resolve) => require([`@/views/${view}`], resolve)
+// }
 export const loadView = (view) => { // 路由懒加载
-  return (resolve) => require([`@/views/${view}`], resolve)
+  console.log(`@/views/${view}`)
+  return () => Promise.resolve(require(`@/views/${view}`).default)
 }
 
 export default permission

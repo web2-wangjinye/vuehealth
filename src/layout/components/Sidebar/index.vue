@@ -1,5 +1,5 @@
 <template>
-  <el-aside :style="{width:tabCollapse?'auto':'200px'}" class="navleft">
+  <div  class="navleft">
     <el-scrollbar class="pagescroll">
       <el-menu
         :default-active="activeMenu"
@@ -10,20 +10,18 @@
         :unique-opened="true"
         :collapse-transition="false"
         mode="vertical"
+        class="el-menu-vertical-demo"
       >
-  <el-menu-item index="2">
-    <i class="el-icon-menu"></i>
-    <template #title>导航二</template>
-  </el-menu-item>
         <sidebar-item
           v-for="(route, index) in sidebarRouters"
           :key="route.path  + index"
           :item="route"
           :base-path="route.path"
         />
+
       </el-menu>
     </el-scrollbar>
-  </el-aside>
+  </div>
 </template>
 
 <script>
@@ -58,7 +56,7 @@ export default {
           }
           return path;
       })
-    return { activeMenu}
+    return { activeMenu }
   },
   created(){
       console.log(this.sidebarRouters)
@@ -79,30 +77,24 @@ export default {
 .pagescroll {
   background: @primary-bg;
   height: 100%;
-    ::v-deep(.submenu-title-noDropdown,.el-submenu__title){
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.06) !important;
-      }
+  ::v-deep(.el-menu-item){
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    .svg-icon{
+      margin-right:4px;
     }
-       ::v-deep(.submenu-title-noDropdown) {
-      padding: 0 !important;
-      position: relative;
-
-      .el-tooltip {
-        padding: 0 !important;
-
-        .svg-icon {
-          margin-left: 20px;
-        }
-      }
+  }
+  ::v-deep(.el-submenu__title){
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    .svg-icon{
+      margin-right:4px;
     }
-//   ::v-deep(.el-menu--collapse .el-submenu > .el-submenu__title span){
-//     height: 0;
-//     width: 0;
-//     overflow: hidden;
-//     visibility: hidden;
-//     display: inline-block;
-// }
+  }
 }
 
 </style>

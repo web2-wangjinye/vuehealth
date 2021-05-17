@@ -38,9 +38,14 @@ export const constantRoutes = [
         component: () => import('@/project/Welcome'),
         name: '首页',
         meta: { title: '首页', icon: 'dashboard', noCache: true, affix: true }
-      }
+      },
+      // {
+      //   path: 'system/user',
+      //   component: () => import('@/views/system/user'),
+      // },
     ]
-  }
+  },
+  
   // {
   //   path: '/user',
   //   component: Layout,

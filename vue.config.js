@@ -31,7 +31,7 @@ module.exports = {
         hotOnly: false, // See https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#configuring-proxy
         proxy: {     // string | Object 解决跨域问题
             [process.env.VUE_APP_BASE_API]: {
-                target: 'https://h.lotut.com/', // 对应自己的 跨域地址 即请求的后端地址
+                target: 'https://www.lotut.cn/', // 对应自己的 跨域地址 即请求的后端地址
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
@@ -42,14 +42,14 @@ module.exports = {
     },
     chainWebpack: config => {
         // 适配
-        config.module
-        .rule('less') //如果你用的是sass就写sass，我用的是less所以就写less
-        .oneOf('vue')
-        .use('px2rem-loader')
-        .loader('px2rem-loader')
-        .before('postcss-loader') // this makes it work.
-        .options({ remUnit: 192, remPrecision: 8 }) // remUnit: 192代表以1920px为整体，如果设计稿的尺寸是750px，这里的值为75
-        .end()
+        // config.module
+        // .rule('less') //如果你用的是sass就写sass，我用的是less所以就写less
+        // .oneOf('vue')
+        // .use('px2rem-loader')
+        // .loader('px2rem-loader')
+        // .before('postcss-loader') // this makes it work.
+        // .options({ remUnit: 192, remPrecision: 8 }) // remUnit: 192代表以1920px为整体，如果设计稿的尺寸是750px，这里的值为75
+        // .end()
         // svg图标
         config.module
         .rule('svg')
